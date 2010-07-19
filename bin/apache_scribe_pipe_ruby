@@ -9,13 +9,10 @@ require 'apache_scribe_pipe'
 options = Hash.new
 options[:host] = "127.0.0.1:1463"
 
-
 #Read CLI options
 ARGV.options do |opts|
   #Set Host
-  opts.on("-h 127.0.0.1:1463","--host 127.0.0.1:1463","Set host and port",String) do |o|
-    options[:host] = o 
-  end
+  opts.on("-h 127.0.0.1:1463","--host 127.0.0.1:1463","Set host and port",String) {|o| options[:host] = o }
   
   #Version
   opts.on("-v","--version","Outputs version") { puts "Version - #{ApacheScribePipe::VERSION}"; exit }
