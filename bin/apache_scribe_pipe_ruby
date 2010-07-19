@@ -36,6 +36,8 @@ while true
   end
 
   #Log the line
+  #If this fails, the program will exit, and apache will continue
+  #to try to restart it until the client connection comes back online
   client.log line
   
 end
