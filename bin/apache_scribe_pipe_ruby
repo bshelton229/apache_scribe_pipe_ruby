@@ -1,0 +1,40 @@
+#!/usr/bin/env ruby
+
+require 'rubygems'
+require 'scribe'
+require 'optparse'
+
+#Default host option
+options = Hash.new
+options[:host] = "127.0.0.1:1463"
+
+
+#Read CLI options
+ARGV.options do |opts|
+  #Set Host
+  opts.on("-h 127.0.0.1:1463","--host 127.0.0.1:1463","Set host and port",String) do |o|
+    options[:host] = o 
+  end
+  
+  #Version
+  opts.on("-v","--version","Outputs version") { puts "Version - "; exit }
+  
+  opts.parse!
+end
+
+#Instantiate the client
+client = Scribe.new options[:host]
+
+#Run the loop until we can't get readline from $stdin
+while true
+  begin
+    line = $stdin.readline
+    line.chomp!
+  rescue
+    exit 0
+  end
+
+  #Log the line
+  client.log line
+  
+end
