@@ -3,6 +3,7 @@
 require 'rubygems'
 require 'scribe'
 require 'optparse'
+require 'apache_scribe_pipe'
 
 #Default host option
 options = Hash.new
@@ -17,7 +18,7 @@ ARGV.options do |opts|
   end
   
   #Version
-  opts.on("-v","--version","Outputs version") { puts "Version - "; exit }
+  opts.on("-v","--version","Outputs version") { puts "Version - #{ApacheScribePipe::VERSION}"; exit }
   
   opts.parse!
 end
