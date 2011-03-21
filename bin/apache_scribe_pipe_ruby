@@ -1,5 +1,4 @@
 #!/usr/bin/env ruby
-
 require 'rubygems'
 require 'scribe'
 require 'optparse'
@@ -13,10 +12,8 @@ options[:host] = "127.0.0.1:1463"
 ARGV.options do |opts|
   #Set Host
   opts.on("-h 127.0.0.1:1463","--host 127.0.0.1:1463","Set host and port",String) {|o| options[:host] = o }
-  
   #Version
   opts.on("-v","--version","Outputs version") { puts "Version - #{ApacheScribePipe::VERSION}"; exit }
-  
   opts.parse!
 end
 
@@ -29,8 +26,8 @@ client = Scribe.new options[:host]
 while true
   begin
     line = $stdin.readline
-    line.chomp!
-  rescue
+    line.strip!
+  rescue Exception
     exit 0
   end
 
@@ -39,9 +36,8 @@ while true
     #If this fails, the program will exit, and apache will continue
     #to try to restart it until the client connection comes back online
     client.log line, options[:category]
-  rescue
+  rescue Exception
     puts "Client connection failed to: #{options[:host]}"
     exit 1
-  end
-  
+  end  
 end
